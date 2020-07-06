@@ -2,14 +2,14 @@
 //function.php
 
 function getVoteCount($id){
-    //カウント数を書きだしてあるファイル名
+    //get file name, which stores the info of given id
     $fileName = "log/" . $id . ".text";
 
-    //fopenでファイルを読み込む (読み込みモード)
+    //open the file (read mode)
     $fp = @fopen($fileName , "r");
 
     if($fp){
-        //カウント数書き込み済みのファイルの内容を取得
+        //get number written in the file
         $vote = fgets($fp , 9182);
     }else{
         $vote = 0;  

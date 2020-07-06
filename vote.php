@@ -2,18 +2,18 @@
 
 //vote.php
 
-//////ajaxデータを受信1
-$file_id = $_POST["file_id"]; //ファイル名
-$count = $_POST["count"]; //投票数
-$cookieName = "vote_" . $file_id; //クッキー名。
-$cookieTime = time() + 3; //クッキーの有効期限（投票を制限する秒数）
+//////recieve ajax
+$file_id = $_POST["file_id"]; //file name
+$count = $_POST["count"]; //votes
+$cookieName = "vote_" . $file_id; //Cookie name
+$cookieTime = time() + 3; //Cookie expiration (second)
 
-///////クッキーが有効
+///////Cookie
 if(isset($_COOKIE[$cookieName])){
     echo "クッキー制御により投票不可です。";
 
 }else{
-///////クッキーが無効＝カウントアップ
+///////If within cookie expiration
     $count = $_POST["count"]; //投票数
 
     //カウント数を書き出すファイル名

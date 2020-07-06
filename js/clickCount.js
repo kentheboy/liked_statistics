@@ -3,9 +3,9 @@ $(function(){
          $('.letsVote').on('click' , function(){
               
               $this = $(this);
-              var id = $this.data("id"); //識別用ID（重複NG）
-              var numHtml = "." + $this.data("numhtml"); //カウント数を表示するHTML
-              var nowCount = Number($(numHtml).html()); //現在のカウント数
+              var id = $this.data("id"); //button ID (no button has the same ID)
+              var numHtml = "." + $this.data("numhtml"); //HTML selector where displays the number of votes
+              var nowCount = Number($(numHtml).html()); //current votes
               var newCount = nowCount + 1;
     
               $.ajax({
@@ -16,12 +16,11 @@ $(function(){
                         "count" : newCount
                    }
               }).done(function(data , datatype){
-                        //送信先のvote.phpから、Completeが返ってきたらカウント更新
-                        //Cookieの有効期限内である場合はCompleteが返らず、そのあとのif(){～～}に当てはまらない
-                        if(data == "Complete"){
+                       
+                        if(data == "Complete"){ //if post request returns "Complete" (from vote.php)
                              $(numHtml).html(newCount);
-                        }else{
-                             alert("押しすぎ(´・ω・｀)");
+                        }else{//if not "complete" (which meanse cookie haven't expired)
+                             alert("二重投票はできません。");
                         }
                    }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
                           $("#XMLHttpRequest").html("XMLHttpRequest : " + XMLHttpRequest.status);
