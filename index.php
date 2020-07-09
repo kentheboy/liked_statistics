@@ -9,10 +9,10 @@ include($document_root.'/likebutton/function.php');
 ?>
     <!--*****index.php-->     
     <button class="letsVote" data-id="buttonID1" data-numhtml="countNum1">
-        <span class="countNum1"><?php echo getVoteCount('buttonID'); ?></span>&nbsp;likes
+        <span class="countNum1"><?php echo getVoteCount('buttonID1'); ?></span>&nbsp;likes
     </button>
     <button class="letsVote" data-id="buttonID2" data-numhtml="countNum2">
-        <span class="countNum2"><?php echo getVoteCount('buttonID'); ?></span>&nbsp;likes
+        <span class="countNum2"><?php echo getVoteCount('buttonID2'); ?></span>&nbsp;likes
     </button>
     <!--/////index.php-->
 </body>

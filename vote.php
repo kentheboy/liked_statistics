@@ -6,27 +6,27 @@
 $file_id = $_POST["file_id"]; //file name
 $count = $_POST["count"]; //votes
 $cookieName = "vote_" . $file_id; //Cookie name
-$cookieTime = time() + 3; //Cookie expiration (second)
+$year_time = (1*24*60*60*1000);
+$cookieTime = time() + $year_time; //Cookie expiration (second)
 
 ///////Cookie
 if(isset($_COOKIE[$cookieName])){
     echo "クッキー制御により投票不可です。";
-
 }else{
 ///////If within cookie expiration
-    $count = $_POST["count"]; //投票数
+    $count = $_POST["count"]; //new number of votes to updated
 
-    //カウント数を書き出すファイル名
+    //file name that will be updated
     $fileName = "log/" . $file_id . ".text";
+ 
+    $fp = @fopen($fileName , "w"); //open log file name with write mode
 
-    $fp = @fopen($fileName , "w"); //書き込みモードで開く
-
-    flock($fp , LOCK_EX); //排他的ロック(書く準備) 他のロックをすべてブロック
-    fputs($fp , $count); //カウント数を書き込み
-    flock($fp , LOCK_UN); //ロック開放
+    flock($fp , LOCK_EX); //lock other file from being able to write or read the file by other users
+    fputs($fp , $count); //write in the new vote number in it
+    flock($fp , LOCK_UN); //un-lock the file to be read or written by other user
     fclose($fp);
 
-    setcookie($cookieName , $count , $cookieTime); //10秒有効のクッキーをセット
+    setcookie($cookieName , $count , $cookieTime); //set cookie for the user
 
-    echo "Complete"; //clickCount.jsにはここの値を返す
+    echo "Complete"; //return complete message
 }
